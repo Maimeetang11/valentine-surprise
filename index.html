@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#ff3366" />
     <title>Valentine's Day Surprise</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -16,9 +16,10 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start; /* จัดให้อยู่เริ่มต้นด้านบน */
         align-items: center;
         height: 100vh;
+        padding-top: 20px; /* เพิ่ม padding ด้านบน */
       }
 
       h1 {
@@ -121,6 +122,16 @@
       .progress-bar {
         width: 100%;
         margin-top: 10px;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem; /* ปรับขนาดฟอนต์ให้เล็กลงบนมือถือ */
+        }
+
+        .music-container {
+          width: 80%; /* เพิ่มความกว้างของ music container บนมือถือ */
+        }
       }
     </style>
   </head>
