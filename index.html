@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff3366" />
+    <title>Valentine's Day Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      .valentine-button {
+        background-color: #ff3366;
+        color: #fff;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .valentine-button:hover {
+        background-color: #ff6699;
+      }
+
+      .valentine-button:focus {
+        outline: none;
+      }
+
+      .valentine-button svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .disc-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center; /* จัดให้อยู่กลางในแนวนอน */
+        align-items: center; /* จัดให้อยู่กลางในแนวตั้ง */
+      }
+
+      .disc {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: url('/S__7274499.jpg') center/cover;
+        position: relative;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
+        transition: transform 5s linear;
+      }
+
+      .disc-border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        pointer-events: none;
+        box-sizing: border-box;
+      }
+
+      .spinning {
+        animation: spin 5s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .music-container {
+        margin-top: 20px;
+        width: 50%;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* จัดให้อยู่กลาง */
+      }
+
+      .music-info {
+        font-size: 1.1rem;
+      }
+
+      .progress-bar {
+        width: 100%;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Happy Valentine's Day!🌹</h1>
+    <p>Wishing you a day filled with love, joy, and special moments.</p>
+    
+    <div class="disc-container">
+      <div id="disc" class="disc"></div>
+      <div id="disc-border" class="disc-border"></div>
+    </div>
+    
+    <div class="music-container">
+      <div class="music-info">
+        <h3>Song Title: เพลงรัก❤️</h3>
+        <p>Artist: Three Man Down</p>
+        <p>Album: That’s the only one love song for you</p>
+      </div>
+
+      <audio id="audio" src="mp3.mp3" preload="auto"></audio>
+      
+      <!-- ปุ่ม Play Music และ Pause -->
+      <button id="play-button" class="valentine-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <polygon points="35,20 35,80 75,50" />
+        </svg>
+        Play Music
+      </button>
+      
+      <div class="progress-bar">
+        <input type="range" id="progress" value="0" max="100" step="0.1" disabled />
+      </div>
+    </div>
+
+    <script>
+      const playButton = document.getElementById('play-button');
+      const disc = document.getElementById('disc');
+      const audio = document.getElementById('audio');
+      const progressBar = document.getElementById('progress');
+      
+      playButton.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          disc.classList.add('spinning'); // ทำให้ disc หมุน
+          playButton.innerHTML = ` 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+              <rect x="25" y="20" width="15" height="60" />
+              <rect x="55" y="20" width="15" height="60" />
+            </svg>
+            Pause Music
+          `;
+        } else {
+          audio.pause();
+          disc.classList.remove('spinning'); // หยุดการหมุน disc
+          playButton.innerHTML = ` 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+              <polygon points="35,20 35,80 75,50" />
+            </svg>
+            Play Music
+          `;
+        }
+      });
+
+      // ฟังก์ชันการอัปเดต Progress Bar
+      audio.addEventListener('timeupdate', () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = progress;
+      });
+    </script>
+  </body>
+</html>
